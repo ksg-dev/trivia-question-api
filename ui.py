@@ -10,15 +10,23 @@ class QuizInterface:
         self.window.title("Quizzler")
         self.window.config(padx=20, pady=20, bg=THEME_COLOR)
 
-        self.canvas = Canvas(width=300, height=250, highlightthickness=0)
-        self.canvas.create_text(150, 150, text="question", font=QUESTION_FONT)
-        self.canvas.grid(column=0, row=1, columnspan=2)
+        self.score_label = Label(text="Score: 0", fg="white", bg=THEME_COLOR)
+        self.score_label.grid(column=1, row=0)
 
-        self.trueimg = PhotoImage(file="images/true.png")
-        self.falseimg = PhotoImage(file="images/false.png")
+        self.canvas = Canvas(width=300, height=250, bg="white", highlightthickness=0)
+        self.question_text = self.canvas.create_text(
+            150,
+            125,
+            text="question",
+            font=QUESTION_FONT,
+            fill=THEME_COLOR)
+        self.canvas.grid(column=0, row=1, columnspan=2, pady=50)
 
-        self.true_button = Button(image=self.trueimg, highlightthickness=0)
-        self.false_button = Button(image=self.falseimg, highlightthickness=0)
+        true_img = PhotoImage(file="images/true.png")
+        false_img = PhotoImage(file="images/false.png")
+
+        self.true_button = Button(image=true_img, highlightthickness=0)
+        self.false_button = Button(image=false_img, highlightthickness=0)
         self.true_button.grid(column=0, row=2)
         self.false_button.grid(column=1, row=2)
 
