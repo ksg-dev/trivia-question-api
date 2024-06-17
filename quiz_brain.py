@@ -30,5 +30,3 @@ class QuizBrain:
             return True
         else:
             return False
-
-

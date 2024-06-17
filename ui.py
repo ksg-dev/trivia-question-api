@@ -4,6 +4,7 @@ from quiz_brain import QuizBrain
 THEME_COLOR = "#375362"
 QUESTION_FONT = ("Arial", 20, "italic")
 
+
 class QuizInterface:
 
     def __init__(self, quiz_brain: QuizBrain):
@@ -39,8 +40,16 @@ class QuizInterface:
 
     def get_next_question(self):
         self.canvas.config(bg="white")
-        q_text = self.quiz.next_question()
-        self.canvas.itemconfig(self.question_text, text=q_text)
+        if self.quiz.still_has_questions():
+            self.score_label.config(text=f"Score: {self.quiz.score}")
+            q_text = self.quiz.next_question()
+            self.canvas.itemconfig(self.question_text, text=q_text)
+        else:
+            self.canvas.itemconfig(
+                self.question_text,
+                text="You've reached the end of the quiz.")
+            self.true_button.config(state="disabled")
+            self.false_button.config(state="disabled")
 
     def true_pressed(self):
         self.give_feedback(self.quiz.check_answer("True"))
